@@ -1,10 +1,10 @@
 <?php
 
 use app\App;
+use app\Router;
 
 require_once dirname(__DIR__) . "/config/init.php";
 require_once LIBS . '/functions.php';
-
-printR(['hello']);
+require_once CONFIG . '/routes.php';
 
 new App();

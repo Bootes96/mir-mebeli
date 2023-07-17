@@ -23,7 +23,7 @@ class ErrorHandler {
     }
 
     //логгирование ошибок. $message - сообщение, $file - в каком файле, $line - номер строки
-    public function logErrors($message = '', $file = '', $line) {
+    public function logErrors($message = '', $file = '', $line = '') {
         error_log("[" . date('Y-m-d H:m:s') . "] Текст ошибки: 
             {$message} | Файл: {$file} | Строка: {$line}\n===\n", 3, ROOT . '/tmp/errors.log');
     }
