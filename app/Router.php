@@ -16,7 +16,8 @@ class Router {
     }
 
     //принимает url. Вызывается в App
-    public static function dispatch(string $url) {
+    public static function dispatch(?string $url) {
+        $url = self::removeQueryString($url);
         if(self::matchRoute($url)) {
             $controller = "app\controllers\\" . self::$route['controller'] . "Controller";
             //если существует класс 
@@ -26,6 +27,7 @@ class Router {
                 //если метод существует, вызываем его
                 if(method_exists($controllerObject, $action)){
                     $controllerObject->$action();
+                    $controllerObject->getView();
                 } else {
                     throw new \Exception("Метод $controller::$action не найден", 404);
                 }
@@ -38,9 +40,9 @@ class Router {
     }
 
     //ищет соответствие в таблице маршрутов
-    public static function matchRoute(string $url) {
+    public static function matchRoute(?string $url) {
         foreach(self::$routes as $pattern => $route) {
-            if(preg_match("#{$pattern}#", $url, $matches)) {
+            if(preg_match("#{$pattern}#", $url ?? "", $matches)) {
                 foreach($matches as $k => $v) {
                     if(is_string($k)) {
                         $route[$k] = $v;
@@ -65,5 +67,17 @@ class Router {
     //для экшенов
     public static function lowerCase(string $name) {
         return lcfirst(self::upperCamelCase($name));
+    }   
+
+    //удаляем параметры из url
+    protected static function removeQueryString(?string $url) {
+        if($url) {
+            $params = explode('&', $url, 2);
+            if(false === strpos($params[0], '=')) {
+                return rtrim($params[0], '/');
+            } else {
+                return ' ';
+            }
+        }
     }
 }
