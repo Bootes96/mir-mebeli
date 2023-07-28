@@ -31,8 +31,58 @@
 </head>
 
 <body>
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <a class="navbar-brand" href="<?= PATH;?>">
+          <span>
+            Мир мебели
+          </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class=""></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav  ">
+            <li class="nav-item active">
+              <a class="nav-link" href="">Каталог</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">
+                Адреса магазинов
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="why.html">
+                Доставка и оплата
+              </a>
+            </li>
+          </ul>
+          <div class="user_option">
+            <a href="">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <span>
+                Войти
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            </a>
+            <form class="form-inline ">
+              <button class="btn nav_search-btn" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
     <div class="content">
-        <?= $content; ?>
+        <?= $content;?>
     </div>
     <!-- footer section -->
     <footer class=" footer_section">

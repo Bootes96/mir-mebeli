@@ -871,5 +871,21 @@ a:focus {
   border-radius: 5px;
 }
 
+.card {
+  width: 444px;
+}
+
+.single-product {
+  overflow: hidden;
+}
+
+.single-product img {
+  height: auto;
+  max-width: 100%;
+}
+
+.product-color {
+  font-size: 18px;
+}
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
