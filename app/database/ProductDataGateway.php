@@ -52,4 +52,16 @@ class ProductDataGateway {
         $category = $this->conn->query($sql)->fetch(\PDO::FETCH_ASSOC);
         return $category;
     }
+
+    //Просмотренные товары
+    public function getLastViewed($ids) {
+        if(!empty($ids)) {
+            $qMarks = str_repeat('?,', count($ids) - 1) . '?';
+            $sql = "SELECT * from product WHERE id in ($qMarks)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute($ids);
+            $product = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $product;
+        }
+    }
 }

@@ -30,7 +30,7 @@ class ErrorHandler {
 
     //показ ошибок 
     protected function displayError($errNumber, $errorStr, $errFile, $errLine, $response = 404) {
-            http_response_code($response);
+            // http_response_code($response);
             if($response == 404 & !DEBUG) {
                 require WWW . '/errors/404.php';
                 die;
