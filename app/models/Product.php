@@ -9,7 +9,7 @@ class Product extends BaseModel
     {
         $viewedProducts = isset($_COOKIE['viewed']) ? $_COOKIE['viewed'] : false;
         if(!$viewedProducts) {
-            setcookie('viewed', $id, time() + 3600*24, '/');
+            setcookie('viewed', $id, time() + 60 * 60 * 24 * 30, '/');
         } else {
             $viewedProducts = explode('.', $viewedProducts);
             if(!in_array($id, $viewedProducts)) {

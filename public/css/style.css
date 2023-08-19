@@ -887,5 +887,10 @@ a:focus {
 .product-color {
   font-size: 18px;
 }
+
+.product-features {
+  display: flex;
+  flex-direction: column;
+}
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */

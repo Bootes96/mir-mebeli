@@ -10,7 +10,6 @@ class ProductController extends BaseController {
     public function indexAction() {
         $connect = new ProductDataGateway((new Connection)->make());
         $product = $connect->getSingleProduct($this->route['alias']);
-    
         //связанные товары
         $related = $connect->getRelatedProduct($product['id']);
         
@@ -31,9 +30,13 @@ class ProductController extends BaseController {
             }
         }
 
-        ////получаем из бд просмотренные товары
+        //получаем из бд просмотренные товары
         $lastViewedProducts = $connect->getLastViewed($lastViewedIds);
+
+
+        printR($product);
 
         $this->set(compact('product', 'related', 'category', 'lastViewedProducts'));
     }
+
 }

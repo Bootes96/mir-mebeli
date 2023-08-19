@@ -19,6 +19,14 @@ class ProductDataGateway {
         return $hits;
     }
 
+    public function getProductId(string $alias) {
+        $sql = "SELECT id from product WHERE alias = ? AND status = '1'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$alias]);
+        $id = $stmt->fetch(\PDO::FETCH_ASSOC);
+        printR($id);
+    }
+
     public function getSingleProduct(string $alias) {
         $sql = "SELECT * from product WHERE alias = ? AND status = '1'";
         $stmt = $this->conn->prepare($sql);
@@ -28,14 +36,18 @@ class ProductDataGateway {
         //Получаем специфичные характеристики товара
         $sql1 = "SELECT * FROM product JOIN attribute_product ON product.id = product_id WHERE product_id ={$product['id']};";
         $attribute = $this->conn->query($sql1)->fetchAll(\PDO::FETCH_ASSOC);
+        // printR($attribute);
         
         //добавляем к основным характеристикам
         foreach($attribute as $item) {
-           foreach ($item as $k => $v) {
-            $product[$item['attribute_title']] = $v;
-           }
+            //если массив еще не создан, то создаем и заносим дополнительные характеристики
+            if(!array_key_exists($item['attribute_title'], $product)) {
+                $product[$item['attribute_title']] = [];
+                $product[$item['attribute_title']][$item['attribute_value']] = $item['price'];
+            } else { 
+                $product[$item['attribute_title']][$item['attribute_value']] = $item['price'];
+            } 
         }
-
         return $product;
     }
 
@@ -65,3 +77,4 @@ class ProductDataGateway {
         }
     }
 }
+
