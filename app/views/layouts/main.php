@@ -2,40 +2,43 @@
 <html>
 
 <head>
-    <base href="/">
-    <!-- Basic -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <base href="/">
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-    <title>
-        Мир мебели
-    </title>
+  <title>
+    Мир мебели
+  </title>
 
-    <!-- slider stylesheet -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
+    <!-- smartmenus -->
+  <link href='css/sm-core-css.css' rel='stylesheet' type='text/css' />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
 </head>
 
 <body>
   <div class="hero_area">
     <!-- header section strats -->
     <header class="header_section">
-      <nav class="navbar navbar-expand-lg custom_nav-container ">
-        <a class="navbar-brand" href="<?= PATH;?>">
+      <nav class="navbar navbar-expand-lg custom_nav-container" id="dropdown-menu">
+        <a class="navbar-brand" href="<?= PATH; ?>">
           <span>
             Мир мебели
           </span>
@@ -45,9 +48,25 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav  ">
-            <li class="nav-item active">
-              <a class="nav-link" href="">Каталог</span></a>
+          <ul class="navbar-nav">
+            <li class="nav-item active sm sm-blue">
+              <a href="" class="nav-link" data-toggle="dropdown">Каталог</a>
+              <ul class="dropdown-menu" id="main-menu">
+                <?php $categories = (new \app\widgets\Menu())->getCategories() ?>
+                <?php if ($categories) : ?>
+                  <?php foreach ($categories as $category) : ?>
+                    <li class="has-submenu higlighted"><a class="nav-link" href="category/<?= $category['alias']; ?>"><?= $category['title']; ?></a>
+                      <ul class="submenu">
+                        <?php if (isset($category['childs'])) : ?>
+                          <?php foreach ($category['childs'] as $child) : ?>
+                            <li><a class="nav-link sublink" href="category/<?= $child['alias']; ?>"><?= $child['title']; ?></a></li>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                      </ul>
+                    </li>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="">
@@ -82,16 +101,16 @@
     <!-- end header section -->
     <!-- slider section -->
     <div class="content">
-        <?= $content;?>
+      <?= $content; ?>
     </div>
     <!-- footer section -->
     <footer class=" footer_section">
-        <div class="container">
-            <p>
-                &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="https://html.design/">Free Html Templates</a>
-            </p>
-        </div>
+      <div class="container">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">Free Html Templates</a>
+        </p>
+      </div>
     </footer>
     <!-- footer section -->
 
@@ -100,7 +119,7 @@
     <!-- end info section -->
 
     <script>
-      const path = '<?=PATH;?>';
+      const path = '<?= PATH; ?>';
     </script>
 
 
@@ -108,6 +127,7 @@
     <script src="js/bootstrap.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     </script>
+    <script src="js/jquery.smartmenus.js"></script>
     <script src="js/main.js"></script>
 
 </body>

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\views\BaseView;
+use app\database\DB;
 
 abstract class BaseController {
     public array $route;
@@ -11,12 +12,15 @@ abstract class BaseController {
     public string $model;
     public string $view;
     public array $data = [];
+    public $connection;
+    public $categories;
 
     public function __construct(array $route)
     {
         $this->route = $route;
         $this->controller = $route['controller'];
         $this->view = $route['action'];
+        $this->connection = (new DB())->connect();
     }
 
     //вызываем вид

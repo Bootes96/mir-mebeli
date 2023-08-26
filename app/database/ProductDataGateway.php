@@ -2,7 +2,6 @@
 
 namespace app\database;
 
-
 class ProductDataGateway {
     
     private $conn;
@@ -75,6 +74,14 @@ class ProductDataGateway {
             $product = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $product;
         }
+    }
+
+    public function getCategoryProduct($id) {
+        $sql = "SELECT * FROM product WHERE category_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $products;
     }
 }
 

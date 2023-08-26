@@ -892,5 +892,29 @@ a:focus {
   display: flex;
   flex-direction: column;
 }
-/* end footer section*/
-/*# sourceMappingURL=style.css.map */
+
+.dropdown-menu {
+  left: auto;
+  position: relative;
+  top: 45px;
+}
+
+.submenu {
+  position: absolute;
+  left: 100% !important;
+  top: 0 !important;
+}
+
+.nav-link {
+  text-align: left !important;
+}
+
+.sublink {
+  border-radius: 0% !important;
+}
+
+.category {
+  margin-top: 3rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
