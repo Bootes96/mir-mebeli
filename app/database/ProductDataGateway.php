@@ -83,5 +83,13 @@ class ProductDataGateway {
         $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $products;
     }
+
+    public function searchProduct($search) {
+        $sql = "SELECT * from product WHERE title LIKE ? LIMIT 10";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(["%{$search}%"]);
+        $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $products;
+    }
 }
 

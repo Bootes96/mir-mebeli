@@ -89,11 +89,13 @@
             <a href="">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             </a>
-            <form class="form-inline ">
-              <button class="btn nav_search-btn" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </form>
+            <div class="search_box">
+              <form action="search" method="get" autocomplete="off" id="search_form">
+                <input type="text" name="query" id="search" placeholder="Название товара">
+                <input type="submit" value="Поиск">			
+              </form>
+              <div id="search_box-result"></div>
+            </div>
           </div>
         </div>
       </nav>

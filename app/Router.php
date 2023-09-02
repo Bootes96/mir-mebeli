@@ -1,9 +1,6 @@
 <?php 
 
 namespace app;
-
-use Exception;
-
 class Router {
     //все имеющиеся маршруты
     protected static array $routes = [];
