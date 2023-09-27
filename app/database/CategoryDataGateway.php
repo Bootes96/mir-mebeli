@@ -32,7 +32,7 @@ class CategoryDataGateway {
     }
 
     public function getCategory($alias) {
-        $sql = "SELECT * from category WHeRE alias = ?";
+        $sql = "SELECT * from category WHERE alias = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$alias]);
         $category = $stmt->fetch(\PDO::FETCH_ASSOC);

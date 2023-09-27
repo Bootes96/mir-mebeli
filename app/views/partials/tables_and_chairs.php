@@ -43,7 +43,7 @@
                             <?php endif; ?>
                             </div>
                             <p class="about"><?= $product['description']; ?></p>
-                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Добавить в корзину</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4 add-to-cart" data-id="<?= $product['id']?>" data-alias="<?= $product['alias']?>">Добавить в корзину</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ class ProductDataGateway {
 
     //Получаем популярные товары
     public function getHits() {
-        $sql = "SELECT * from product WHERE hit = '1'";
+        $sql = "SELECT * from hits";
         $hits = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
         return $hits;
     }
@@ -23,7 +23,6 @@ class ProductDataGateway {
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$alias]);
         $id = $stmt->fetch(\PDO::FETCH_ASSOC);
-        printR($id);
     }
 
     public function getSingleProduct(string $alias) {
@@ -35,7 +34,6 @@ class ProductDataGateway {
         //Получаем специфичные характеристики товара
         $sql1 = "SELECT * FROM product JOIN attribute_product ON product.id = product_id WHERE product_id ={$product['id']};";
         $attribute = $this->conn->query($sql1)->fetchAll(\PDO::FETCH_ASSOC);
-        // printR($attribute);
         
         //добавляем к основным характеристикам
         foreach($attribute as $item) {
@@ -88,6 +86,18 @@ class ProductDataGateway {
         $sql = "SELECT * from product WHERE title LIKE ? LIMIT 10";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(["%{$search}%"]);
+        $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $products;
+    }
+
+    public function getMods($mods, $id) {
+        $sql = [];
+        foreach($mods as $k => $v) {
+            $sql[] = "SELECT * from attribute_product WHERE attribute_value = '$v' AND product_id = :id "; 
+        }
+        $sql = implode('UNION ALL ', $sql);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
         $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $products;
     }

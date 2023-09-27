@@ -33,4 +33,9 @@ abstract class BaseController {
     public function set(array $data) {
         $this->data = $data;
     }
+
+    //Ajax запрос или нет
+    public function isAjax() {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
 }

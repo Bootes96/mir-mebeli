@@ -109,13 +109,13 @@
         <?php foreach($hits as $hit) : ?>
         <div class="col-sm-6 col-md-4 col-lg-4">
           <div class="box">
-            <a href="product/<?=$hit['alias'];?>">
+            <a href="product/<?= $hit['product_alias'];?>">
               <div class="product-img-box">
-                <img src="images/<?=$hit['img'];?>" alt=""/>
+                <img src="images/<?=$hit['product_img']?>" alt=""/>
               </div>
               <div class="detail-box">
                 <h6>
-                  <?= $hit['title'];?>
+                  <?= $hit['product_title'];?>
                 </h6>
                 <h6>
                   Цена:
@@ -124,6 +124,13 @@
                   рублей
                   </span>
                 </h6>
+                <div>
+                  <?php $mods = json_decode($hit['mods'], true);?>
+                  <?php foreach($mods as $k => $v): ?>
+                  <?= $k . ": " . $v?> </br>
+                  <?php endforeach;?>
+                </div>
+                <a href="" class="add-to-cart" data-id="<?= $hit['product_id'];?>" data-alias="<?= $hit['product_alias'];?>" data-mods="<?= implode(',', $mods);?>"><i class="fa fa-solid fa fa-cart-arrow-down"></i></a>
               </div>
             </a>
           </div>

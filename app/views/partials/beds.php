@@ -35,7 +35,7 @@
                                 <?php if (count($product['sleeping_place_size']) > 1) : ?>
                                     <select class="form-select" aria-label="Default select example" id="product-select" onchange="setSearchParams(this)">
                                         <?php foreach (array_keys($product['sleeping_place_size']) as $size) : ?>
-                                            <option class="price-option" id="product-option" <?php echo $getSize == $size ? 'selected' : 'size'; ?> value="size" data-price="<?= $product['sleeping_place_size'][$size] ?>"><?= $size; ?></option>
+                                            <option class="price-option" id="product-option" <?php echo $getSize == $size ? 'selected' : 'size'; ?> value="sleeping_place_size" data-price="<?= $product['sleeping_place_size'][$size] ?>"><?= $size; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 <?php else : ?>
@@ -56,7 +56,7 @@
                                 <?php endif; ?>
                             </div>
                             <p class="about">Описание: <?= $product['description']; ?></p>
-                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Добавить в корзину</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+                            <div class="cart mt-4 align-items-center"> <button data-id="<?= $product['id']?>" data-alias="<?= $product['alias']?>" class="btn btn-danger text-uppercase mr-2 px-4 add-to-cart">Добавить в корзину</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
                         </div>
                     </div>
                 </div>

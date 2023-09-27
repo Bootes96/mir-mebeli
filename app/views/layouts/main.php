@@ -24,8 +24,11 @@
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
-    <!-- smartmenus -->
+  <!-- smartmenus -->
   <link href='css/sm-core-css.css' rel='stylesheet' type='text/css' />
+
+  <!-- font-awesome -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
@@ -86,13 +89,20 @@
                 Войти
               </span>
             </a>
-            <a href="">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            <a class="main-cart" href="cart/show" onclick="getCart(); return false;">
+              <i class="cart fa fa-cart-arrow-down" aria-hidden="true"></i>
+              <div class="total">
+                <?php if(!empty($_SESSION['cart'])): ?>
+                  <span class="cart-total"><?= $_SESSION['cart.sum'] ;?> Рублей</span>
+                <?php else: ?>
+                  <span>Корзина пуста</span>
+                <?php endif;?>
+              </div>
             </a>
             <div class="search_box">
               <form action="search" method="get" autocomplete="off" id="search_form">
                 <input type="text" name="query" id="search" placeholder="Название товара">
-                <input type="submit" value="Поиск">			
+                <input type="submit" value="Поиск">
               </form>
               <div id="search_box-result"></div>
             </div>
@@ -103,6 +113,9 @@
     <!-- end header section -->
     <!-- slider section -->
     <div class="content">
+      <?php
+      // session_destroy();
+      // printR($_SESSION); ?>
       <?= $content; ?>
     </div>
     <!-- footer section -->
@@ -115,7 +128,25 @@
       </div>
     </footer>
     <!-- footer section -->
+    <!-- Modal -->
+    <div class="modal fade" id="cart" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Корзина</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+            <a href="cart/view" type="button" class="btn btn-primary">Оформить заказ</a>
+            <button type="button" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     </section>
 
     <!-- end info section -->
@@ -126,6 +157,7 @@
 
 
     <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     </script>
