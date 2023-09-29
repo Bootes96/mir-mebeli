@@ -227,6 +227,10 @@ a:focus {
   color: #000000;
 }
 
+.user_option i {
+  color: #dc3545;
+}
+
 .user_option a span {
   margin-left: 5px;
 }
@@ -858,6 +862,21 @@ a:focus {
   margin-bottom: 10px;
 }
 
+.category-img-box img {
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  max-height: 227px;
+  min-height: 227px;
+}
+
+.box {
+  background-color: #eeeeee;
+  position: relative;
+  padding: 10px;
+  margin-top: 25px;
+}
+
 .detail-box {
   min-height: 100px;
   flex-direction: column;
@@ -888,9 +907,17 @@ a:focus {
   font-size: 18px;
 }
 
+.product-price {
+  font-weight: 600;
+}
+
 .product-features {
   display: flex;
   flex-direction: column;
+}
+
+.product-feature {
+  margin-bottom: 1rem;
 }
 
 .dropdown-menu {
@@ -919,7 +946,6 @@ a:focus {
   margin-right: 2rem;
 }
 
-
 .search_result {
 	position: absolute;
 	top: 100%;
@@ -934,9 +960,11 @@ a:focus {
   background-color: #007bff;
 }
 
-.add-to-cart i{
-  font-size: 25px;
-  color: #db4f66;
+.add-to-cart {
+  display: flex;
+  justify-content: center;
+  background-color: #f16179;
+  margin-top: 15px;
 }
 
 #cart {
@@ -954,6 +982,10 @@ a:focus {
 
 .main-cart {
   display: flex;
+}
+
+.main-cart i {
+  color: #dc3545;
 }
 
 .del-item {
@@ -993,45 +1025,19 @@ a:focus {
 .loader {
   width: 48px;
   height: 48px;
-  border: 3px dotted #FFF;
-  border-style: solid solid dotted dotted;
+  border: 5px solid #FFF;
+  border-bottom-color: #FF3D00;
   border-radius: 50%;
   display: inline-block;
-  position: relative;
   box-sizing: border-box;
-  animation: rotation 2s linear infinite;
-}
-.loader::after {
-  content: '';  
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  border: 3px dotted #FF3D00;
-  border-style: solid solid dotted;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  animation: rotationBack 1s linear infinite;
-  transform-origin: center center;
-}
-    
-@keyframes rotation {
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
   0% {
-    transform: rotate(0deg);
+      transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+      transform: rotate(360deg);
   }
-} 
-@keyframes rotationBack {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-} 
+  } 

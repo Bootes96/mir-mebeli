@@ -38,4 +38,11 @@ class CategoryDataGateway {
         $category = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $category;
     }
+
+    public function getCategories() {
+        //выводим категории без подкатегорий
+        $sql = "SELECT * from category WHERE parent_id IS NULL";
+        $categories = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        return $categories;
+    }
 }

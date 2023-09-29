@@ -20,9 +20,9 @@
                         <td><a href="product/<?= $item['alias']; ?>"><?= $item['title']; ?></a></td>
                         <td>
                             <form id='counter' data-id="<?= $id; ?>">
-                                <input type='button' value='-' class='qtyminus' field='quantity' />
+                                <input type='button' value='-' class='qty-button qtyminus' field='quantity' />
                                 <input type='text' name='quantity' value="<?= $item['qty']; ?>" class='qty' />
-                                <input type='button' value='+' class='qtyplus' field='quantity' />
+                                <input type='button' value='+' class='qty-button qtyplus' field='quantity' />
                             </form>
                         </td>
                         <td><?= $item['price']; ?></td>

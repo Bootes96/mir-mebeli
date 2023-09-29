@@ -114,12 +114,12 @@
                 <img src="images/<?=$hit['product_img']?>" alt=""/>
               </div>
               <div class="detail-box">
-                <h6>
+                <h5>
                   <?= $hit['product_title'];?>
-                </h6>
+                </h5>
                 <h6>
                   Цена:
-                  <span>
+                  <span class="product-price">
                   <?= $hit['price'];?>
                   рублей
                   </span>
@@ -130,7 +130,7 @@
                   <?= $k . ": " . $v?> </br>
                   <?php endforeach;?>
                 </div>
-                <a href="" class="add-to-cart" data-id="<?= $hit['product_id'];?>" data-alias="<?= $hit['product_alias'];?>" data-mods="<?= implode(',', $mods);?>"><i class="fa fa-solid fa fa-cart-arrow-down"></i></a>
+                <a href="" class="add-to-cart btn" data-id="<?= $hit['product_id'];?>" data-alias="<?= $hit['product_alias'];?>" data-mods="<?= implode(',', $mods);?>">В корзину</a>
               </div>
             </a>
           </div>
@@ -147,6 +147,43 @@
   <?php endif; ?>
 
   <!-- end shop section -->
+
+  <!-- start category section -->
+  <?php if($categories): ?>
+  <section class="shop_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Категории товаров
+        </h2>
+      </div>
+      <div class="row">
+        <?php foreach($categories as $category) : ?>
+        <div class="col-sm-6 col-md-4 col-lg-4">
+          <div class="box">
+            <a href="category/<?= $category['alias'];?>">
+              <div class="category-img-box">
+                <img src="images/<?=$category['img']?>" alt=""/>
+              </div>
+              <div class="category-detail">
+                <h5>
+                  <?= $category['title'];?>
+                </h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <?php endforeach;?>
+      </div>
+      <div class="btn-box">
+        <a href="">
+          View All Products
+        </a>
+      </div>
+    </div>
+  </section>
+  <?php endif; ?>
+  <!-- end category section -->
 
   <!-- saving section -->
 

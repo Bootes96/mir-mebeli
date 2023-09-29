@@ -9,9 +9,10 @@
                 <img src="images/<?=$product['img'];?>" alt=""/>
               </div>
               <div class="detail-box">
-                <h6>
+                <h5>
                   <?= $product['title'];?>
-                </h6>
+                </h5>
+                </a>
                 <h6>
                   Цена:
                   <span>
@@ -20,7 +21,6 @@
                   </span>
                 </h6>
               </div>
-            </a>
           </div>
         </div>
         <?php endforeach;?>
