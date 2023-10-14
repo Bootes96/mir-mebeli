@@ -74,14 +74,27 @@ class ProductDataGateway {
         }
     }
 
-    public function getCategoryProduct($id) {
-        $sql = "SELECT * FROM product WHERE category_id = ?";
+    //Товары, которые относятся к категории
+    public function getCategoryProduct($productIds) {
+
+        $productIds = array_column($productIds, 'product_id');
+        $inQuery = str_repeat('?,', count($productIds) - 1) . '?';
+        $sql = "SELECT * FROM product WHERE id IN ($inQuery)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute($productIds);
         $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $products;
+    }
+    
+    //Вывод отфильтрованных товаров
+    public function getFilteredProducts($categoryId, $sql_part) {              
+        $sql = "SELECT * FROM product INNER JOIN product_category WHERE product.id IN ($sql_part) AND product.id = product_category.product_id AND product_category.category_id = $categoryId";
+        $products = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
         return $products;
     }
 
+    //Поиск
     public function searchProduct($search) {
         $sql = "SELECT * from product WHERE title LIKE ? LIMIT 10";
         $stmt = $this->conn->prepare($sql);
@@ -90,6 +103,7 @@ class ProductDataGateway {
         return $products;
     }
 
+    //Модификации товара
     public function getMods($mods, $id) {
         $sql = [];
         foreach($mods as $k => $v) {

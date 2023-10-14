@@ -62,7 +62,7 @@
                       <ul class="submenu">
                         <?php if (isset($category['childs'])) : ?>
                           <?php foreach ($category['childs'] as $child) : ?>
-                            <li><a class="nav-link sublink" href="category/<?= $child['alias']; ?>"><?= $child['title']; ?></a></li>
+                            <li><a class="nav-link sublink" href="category/<?=$child['parent_alias']?>/<?= $child['alias']; ?>"><?= $child['title']; ?></a></li>
                           <?php endforeach; ?>
                         <?php endif; ?>
                       </ul>
@@ -150,6 +150,10 @@
     </section>
 
     <!-- end info section -->
+
+    <div class="preloader">
+      <img src="images/ring.svg" alt="">
+    </div>
 
     <script>
       const path = '<?= PATH; ?>';

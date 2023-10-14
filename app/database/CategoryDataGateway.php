@@ -39,10 +39,44 @@ class CategoryDataGateway {
         return $category;
     }
 
+    public function getSubcategory($categoryId) {
+        $sql = "SELECT id from category WHERE parent_id = $categoryId";
+        $subcategories = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        return $subcategories;
+    }
+
     public function getCategories() {
         //выводим категории без подкатегорий
         $sql = "SELECT * from category WHERE parent_id IS NULL";
         $categories = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
         return $categories;
+    }
+
+    public function getParentCategoryId($alias) {
+        $sql = "SELECT * from category WHERE alias = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$alias]);
+        $categoryId = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $categoryId;
+    }
+
+    public function getCategoryProduct($categoryId) {
+        $sql = "SELECT product_id from product_category WHERE category_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$categoryId]);
+        $productIds = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $productIds;
+    }
+
+    public function getGroups($categoryId) {
+        $sql = "SELECT * from attribute_group INNER JOIN attribute_group_category ON attribute_group.id = attribute_group_category.attribute_group_id AND attribute_group_category.category_id = $categoryId";
+        $groups = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        return $groups;
+    }
+
+    public function getAttrs($categoryId) {
+        $sql = "SELECT * from attribute_value INNER JOIN attribute_value_category ON attribute_value.id = attribute_value_category.attribute_value_id AND attribute_value_category.category_id = $categoryId";
+        $attrs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        return $attrs;
     }
 }

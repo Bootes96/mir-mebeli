@@ -6,6 +6,10 @@ body {
   background-color: #ffffff;
 }
 
+ul {
+  list-style: none;
+}
+
 .layout_padding {
   padding-top: 90px;
   padding-bottom: 90px;
@@ -1041,3 +1045,26 @@ a:focus {
       transform: rotate(360deg);
   }
   } 
+
+  .category-filter_item div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .preloader{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:9999;
+    background-color:#fefefe;
+    opacity: .7;
+    display: none;
+  }
+  .preloader img{
+    position:relative;
+    left:50%;
+    top:50vh;
+    margin:-100px 0 0 -100px;
+  }
