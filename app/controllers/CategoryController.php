@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\database\CategoryDataGateway;
 use app\database\ProductDataGateway;
 use app\database\DB;
+use libraries\Pagination;
 use app\widgets\filter\Filter;
 
 class CategoryController extends BaseController {
@@ -14,6 +15,11 @@ class CategoryController extends BaseController {
         $subalias = $this->route['subalias'] ?? null;
 
         $connect = new CategoryDataGateway((new DB())->connect());
+
+        $conn = new ProductDataGateway((new DB())->connect());
+
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; 
+        $perpage = 5;    
         
         if($subalias) {
             $category = $connect->getCategory($subalias);
@@ -34,16 +40,22 @@ class CategoryController extends BaseController {
                 $cnt = Filter::getCountGroups($filter, $category, $connect);
             }
             $sql_part = "SELECT product_id FROM attribute_product WHERE attribute_value_id IN ($filter) GROUP BY product_id HAVING COUNT(product_id) = $cnt";
-            $products = $conn->getFilteredProducts($category['id'], $sql_part);
+            $totalProducts = $conn->countFilteredProduct($category['id'], $sql_part);
+            $pagination = new Pagination($page, $perpage, $totalProducts);
+            $start = $pagination->getStart();
+            $products = $conn->getFilteredProducts($category['id'], $sql_part, $start, $perpage);
         } else {
-            $products = $conn->getCategoryProduct($categoryProducts);
+            $totalProducts = $conn->countCategoryProduct($categoryProducts);
+            $pagination = new Pagination($page, $perpage, $totalProducts);
+            $start = $pagination->getStart();
+            $products = $conn->getCategoryProduct($categoryProducts, $start, $perpage);
         }
 
         if($this->isAjax()) {
             $this->loadView('filter', compact('products'));
         }
 
-        $this->set(compact('products', 'category'));
+        $this->set(compact('products', 'category', 'pagination'));
 
     }
 }

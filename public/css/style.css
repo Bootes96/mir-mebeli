@@ -10,6 +10,10 @@ ul {
   list-style: none;
 }
 
+a {
+  cursor: pointer;
+}
+
 .layout_padding {
   padding-top: 90px;
   padding-bottom: 90px;
@@ -866,6 +870,16 @@ a:focus {
   margin-bottom: 10px;
 }
 
+.product-one__inner {
+  display: flex;
+  margin-bottom: 20px;
+}
+ 
+.lol {
+  display: flex;
+  flex-direction: column !important;
+}
+
 .category-img-box img {
   width: 100%;
   object-fit: cover;
@@ -948,6 +962,10 @@ a:focus {
   margin-top: 3rem;
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.category .row {
+  flex-direction: row;
 }
 
 .search_result {

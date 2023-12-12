@@ -48,6 +48,31 @@ class ProductDataGateway {
         return $product;
     }
 
+    //общее количество товаров в таблице
+    public function getTotalProduct($filter, $cnt) {
+        $sql = "SELECT count(*) FROM attribute_product WHERE attribute_value_id IN ($filter) GROUP BY product_id HAVING COUNT(product_id) = $cnt";
+        $res = $this->conn->query($sql);
+        $total = $res->fetchColumn();
+        return $total;
+    }
+
+    public function countFilteredProduct($categoryId, $sql_part) {
+        $sql = "SELECT count(*) FROM product INNER JOIN product_category WHERE product.id IN ($sql_part) AND product.id = product_category.product_id AND product_category.category_id = $categoryId";
+        $res = $this->conn->query($sql);
+        $total = $res->fetchColumn();
+        return $total;
+    }
+
+    public function countCategoryProduct($productIds) {
+        $productIds = array_column($productIds, 'product_id');
+        $inQuery = str_repeat('?,', count($productIds) - 1) . '?';
+        $sql = "SELECT count(*) FROM product WHERE id IN ($inQuery)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($productIds);
+        $total = $stmt->fetchColumn();
+        return $total;
+    }
+
     //Связанные товары
     public function getRelatedProduct($id) {
         $sql = "SELECT * FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = $id";
@@ -75,11 +100,11 @@ class ProductDataGateway {
     }
 
     //Товары, которые относятся к категории
-    public function getCategoryProduct($productIds) {
+    public function getCategoryProduct($productIds, $start, $perpage) {
 
         $productIds = array_column($productIds, 'product_id');
         $inQuery = str_repeat('?,', count($productIds) - 1) . '?';
-        $sql = "SELECT * FROM product WHERE id IN ($inQuery)";
+        $sql = "SELECT * FROM product WHERE id IN ($inQuery) LIMIT $start, $perpage";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($productIds);
         $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -88,8 +113,8 @@ class ProductDataGateway {
     }
     
     //Вывод отфильтрованных товаров
-    public function getFilteredProducts($categoryId, $sql_part) {              
-        $sql = "SELECT * FROM product INNER JOIN product_category WHERE product.id IN ($sql_part) AND product.id = product_category.product_id AND product_category.category_id = $categoryId";
+    public function getFilteredProducts($categoryId, $sql_part, $start, $perpage) {              
+        $sql = "SELECT * FROM product INNER JOIN product_category WHERE product.id IN ($sql_part) AND product.id = product_category.product_id AND product_category.category_id = $categoryId LIMIT $start, $perpage";
         $products = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
         return $products;
     }
