@@ -243,6 +243,14 @@ a:focus {
   margin-left: 5px;
 }
 
+.dropdown-menu .user-dropdown {
+  position: absolute;
+}
+
+.user-dropdown li {
+  padding: 5px;
+}
+
 /*end header section*/
 .slider_section .slider_container {
   color: #fefefe;
@@ -875,11 +883,6 @@ a:focus {
   margin-bottom: 20px;
 }
  
-.lol {
-  display: flex;
-  flex-direction: column !important;
-}
-
 .category-img-box img {
   width: 100%;
   object-fit: cover;
@@ -940,8 +943,8 @@ a:focus {
 
 .dropdown-menu {
   left: auto;
-  position: relative;
-  top: 45px;
+  position: absolute;
+  top: 38px;
 }
 
 .submenu {
@@ -1086,3 +1089,9 @@ a:focus {
     top:50vh;
     margin:-100px 0 0 -100px;
   }
+ 
+  .container {
+    padding-top: 4rem;
+  }
+
+  

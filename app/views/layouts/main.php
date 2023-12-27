@@ -85,9 +85,20 @@
           <div class="user_option">
             <a href="">
               <i class="fa fa-user" aria-hidden="true"></i>
-              <span>
-                Войти
-              </span>
+              <div class="btn-group">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  Аккаунт <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu user-dropdown">
+                  <?php if(!empty($_SESSION['user'])): ?>
+                    <li><a href="#">Добро пожаловать, <?php htmlspecialchars($_SESSION['user']['name']);?></a></li>
+                    <li><a href="user/logout">Выход</a></li>
+                  <?php else: ?>
+                    <li><a href="user/login">Вход</a></li>
+                    <li><a href="user/signup">Регистрация</a></li>
+                  <?php endif;?>
+                </ul>
+              </div>
             </a>
             <a class="main-cart" href="cart/show" onclick="getCart(); return false;">
               <i class="cart fa fa-cart-arrow-down" aria-hidden="true"></i>
@@ -113,6 +124,22 @@
     <!-- end header section -->
     <!-- slider section -->
     <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <?php if(isset($_SESSION['error'])): ?>
+              <div class="alert alert-danger">
+                <?php echo $_SESSION['error']; unset($_SESSION['error']);?>
+              </div>
+            <?php endif;?>
+            <?php if(isset($_SESSION['success'])): ?>
+              <div class="alert alert-success">
+                <?php echo $_SESSION['success']; unset($_SESSION['success']);?>
+              </div>
+            <?php endif;?>
+          </div>
+        </div>
+      </div>
       <?php
       // session_destroy();
       // printR($_SESSION); ?>
@@ -163,6 +190,7 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/validator.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     </script>
     <script src="js/jquery.smartmenus.js"></script>
